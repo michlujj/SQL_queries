@@ -29,8 +29,8 @@ HAVING COUNT(*) > 1;
 CREATE Table Persons (PersonID int, 
 			      LastName varchar(255),
 			      FirstName varchar(255),
-      		  Address varchar(255),
-            City varchar(255));
+      		  	      Address varchar(255),
+            		      City varchar(255));
 
 -- Write the correct SQL statement to delete a table called Persons.
 DROP table Persons;
