@@ -1,7 +1,60 @@
-Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than $2000 per month who have been employees for less than 10 months. 
-
+--Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary 
+greater than $2000 per month who have been employees for less than 10 months. 
 Sort your result by ascending employee_id.
 
 SELECT name FROM Employee
 WHERE salary > 2000 AND months < 10
 ORDER BY employee_id;
+
+-- Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+
+SELECT sum(CITY.POPULATION) FROM CITY
+INNER JOIN COUNTRY on CITY.CountryCode = Country.code
+WHERE CONTINENT = 'ASIA';
+
+--Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. 
+Your result cannot contain duplicates.
+
+SELECT DISTINCT(CITY) FROM STATION
+WHERE CITY NOT RLIKE "^[AEIOUS]" OR CITY NOT RLIKE "[AEIOU]$";
+
+-- Write a solution to report all the duplicate emails. Note that it's guaranteed that the email field is not NULL.
+
+SELECT email FROM Person
+GROUP By email
+HAVING COUNT(*) > 1;
+
+-- Write the correct SQL statement to create a new table called Persons.
+CREATE Table Persons (PersonID int, 
+			      LastName varchar(255),
+			      FirstName varchar(255),
+      		  Address varchar(255),
+            City varchar(255));
+
+-- Write the correct SQL statement to delete a table called Persons.
+DROP table Persons;
+
+-- Use the TRUNCATE statement to delete all data inside a table.
+TRUNCATE TABLE Persons;
+
+-- Add a column of type DATE called Birthday.
+Alter TABLE Persons
+ADD Birthday DATE;
+
+-- Delete the column Birthday from the Persons table.
+ALTER TABLE Persons,
+DROP column Birthday;
+
+
+
+
+
+
+
+
+
+
+
+
+
