@@ -1,4 +1,4 @@
---Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary 
+-- Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary 
 greater than $2000 per month who have been employees for less than 10 months. 
 Sort your result by ascending employee_id.
 
@@ -13,7 +13,7 @@ SELECT sum(CITY.POPULATION) FROM CITY
 INNER JOIN COUNTRY on CITY.CountryCode = Country.code
 WHERE CONTINENT = 'ASIA';
 
---Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. 
+-- Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. 
 Your result cannot contain duplicates.
 
 SELECT DISTINCT(CITY) FROM STATION
@@ -45,6 +45,29 @@ ADD Birthday DATE;
 -- Delete the column Birthday from the Persons table.
 ALTER TABLE Persons,
 DROP column Birthday;
+
+-- Write a SQL code to update the City column of all records in the Customers table
+
+Update Customers
+Set City = 'Oslo';
+
+-- Set the value of the City columns to 'Oslo', but only the ones where the Country column has the value "Norway".
+
+Update Customers
+Set City = 'Oslo'
+WHERE Country = 'Norway';
+
+-- Update the City value and the Country value.
+
+Update Customers
+Set City = 'Oslo',
+Country = 'Norway'
+WHERE CustomerID = 32;
+
+-- Delete all the records from the Customers table where the Country value is 'Norway'.
+
+Delete From Customers
+Where Country = ‘Norway’;
 
 
 
