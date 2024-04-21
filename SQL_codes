@@ -1,0 +1,155 @@
+Given a table of candidates and their skills, you're tasked with finding the candidates best suited for an open Data Science job. 
+You want to find candidates who are proficient in Python, Tableau, and PostgreSQL.
+Write a query to list the candidates who possess all of the required skills for the job. 
+Sort the output by candidate ID in ascending order.
+
+SELECT candidate_id FROM candidates
+WHERE skill IN ('Python','Tableau','PostgreSQL')
+GROUP BY candidate_id
+HAVING COUNT(skill) = 3
+ORDER BY candidate_id;
+
+Assume you're given a table containing job postings from various companies on the LinkedIn platform. 
+Write a query to retrieve the count of companies that have posted duplicate job listings.
+
+SELECT company_id, title, description, COUNT(job_id) AS job_count 
+FROM job_listings
+GROUP BY company_id, title, description;
+
+Write a solution to find all dates' Id with higher temperatures compared to its previous dates (yesterday).
+Return the result table in any order.
+
+SELECT w1.id FROM Weather w1, Weather w2
+WHERE DATEDIFF(w1.recordDate, w2.recordDate) = 1 AND w1.temperature > w2.temperature;
+
+Explanation: The DATEDIFF() function will return the difference between 2 date values.
+
+Find the names of the customer that are not referred by the customer with id = 2.
+Return the result table in any order.
+
+SELECT name FROM Customer
+WHERE referee_id != 2 OR referee_id is NULL;
+
+Write a solution to find all the authors that viewed at least one of their own articles.
+Return the result table sorted by id in ascending order.
+
+SELECT DISTINCT(author_id) AS id FROM Views
+WHERE author_id = viewer_id
+ORDER by id;
+
+Write a solution to show the unique ID of each user, 
+If a user does not have a unique ID replace just show null.
+Return the result table in any order.
+
+SELECT COALESCE(EmployeeUNI.unique_id, NULL) AS unique_id, Employees.name FROM Employees
+LEFT JOIN EmployeeUNI
+ON Employees.id = EmployeeUNI.id;
+
+Write a solution to find the IDs of the users who visited without making any transactions and 
+the number of times they made these types of visits.
+Return the result table sorted in any order.
+
+SELECT Visits.customer_id, COUNT(*) AS count_no_trans FROM Visits
+LEFT JOIN Transactions 
+ON Visits.visit_id = Transactions.visit_id
+WHERE Transactions.amount IS NULL
+GROUP By customer_id;
+
+Write a solution to report the name and bonus amount of each employee with a bonus less than 1000.
+Return the result table in any order.
+
+SELECT Employee.name, Bonus.bonus FROM Employee
+LEFT JOIN Bonus
+ON Employee.empId = Bonus.empID
+where bonus < 1000 OR bonus IS NULL;
+
+CVS Health is trying to better understand its pharmacy sales, and how well different products are selling. 
+Each drug can only be produced by one manufacturer.
+Write a query to find the top 3 most profitable drugs sold, and how much profit they made. 
+Assume that there are no ties in the profits. Display the result from the highest to the lowest total profit.
+• cogs stands for Cost of Goods Sold which is the direct cost associated with producing the drug.
+• Total Profit = Total Sales - Cost of Goods Sold
+
+SELECT drug, (total_sales - cogs) AS total_profit FROM pharmacy_sales
+ORDER BY total_profit DESC
+LIMIT 3;
+
+CVS Health is analyzing its pharmacy sales data, and how well different products are selling in the market. 
+Each drug is exclusively manufactured by a single manufacturer.
+Write a query to identify the manufacturers associated with the drugs that resulted in losses for CVS Health
+and calculate the total amount of losses incurred.
+Output the manufacturer's name, the number of drugs associated with losses, 
+and the total losses in absolute value. 
+Display the results sorted in descending order with the highest losses displayed at the top.
+
+SELECT manufacturer, COUNT(drug) AS drug_count, SUM(ABS(total_sales - cogs)) AS total_loss
+FROM pharmacy_sales
+WHERE total_sales - cogs <= 0
+GROUP BY manufacturer
+ORDER BY total_loss DESC;
+
+CVS Health wants to gain a clearer understanding of its pharmacy sales and the performance of various products.
+Write a query to calculate the total drug sales for each manufacturer. 
+Round the answer to the nearest million and report your results in descending order of total sales. 
+In case of any duplicates, sort them alphabetically by the manufacturer name.
+Since this data will be displayed on a dashboard viewed by business stakeholders, 
+please format your results as follows: "$36 million".
+
+SELECT manufacturer, 
+CONCAT('$', ROUND(SUM(total_sales)/1000000), 'million') AS sales_mil
+FROM pharmacy_sales
+GROUP BY manufacturer
+ORDER BY SUM(total_sales) DESC;
+
+Write a solution to report the movies with an odd-numbered ID and a description that is not "boring".
+Return the result table ordered by rating in descending order.
+
+SELECT * FROM Cinema
+WHERE ID%2!=0 AND description NOT LIKE 'boring'
+ORDER BY rating DESC;
+
+Write a solution to find managers with at least five direct reports.
+Return the result table in any order.
+The result format is in the following example.
+
+SELECT e1.name FROM Employee e1
+JOIN Employee e2
+ON e1.id = e2.managerId
+GROUP BY e1.id, e1.name
+HAVING COUNT(e2.id) >= 5 (Explanation: This is an example of a self-join.)
+
+Write an SQL query that reports the average experience years of all the employees for each project, 
+rounded to 2 digits.
+Return the result table in any order.
+
+SELECT Project.project_id, ROUND(AVG(Employee.experience_years),2)
+AS average_years FROM Project
+JOIN Employee
+ON Project.employee_id = Employee.employee_id
+GROUP BY Project.Project_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
